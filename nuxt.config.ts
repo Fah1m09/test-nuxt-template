@@ -24,6 +24,28 @@ export default defineNuxtConfig({
     viewer: true,
   },
   i18n: {
-    vueI18n: "./i18n.config.ts", // if you are using custom path, default
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "lang",
+      alwaysRedirect: false,
+    },
+    defaultLocale: "en",
+    locales: [
+      {
+        code: "en",
+        name: "English",
+        file: "en.json",
+        iso: "en-US",
+        dir: "ltr",
+      },
+      {
+        code: "bn",
+        name: "Bangla",
+        file: "bn.json",
+        iso: "bn-BD",
+        dir: "rtl",
+      },
+    ],
+    langDir: "lang",
   },
 });

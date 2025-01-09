@@ -14,7 +14,7 @@ const { setLocale } = useI18n()
                 <div>
                     <button @click="setLocale('en')">en</button>
                     <button @click="setLocale('bn')">bn</button>
-                    <p>{{ $t('welcome') }}</p>
+                    <p>{{ $t('TITLE') }}</p>
                     <nuxt-link to="/login">
                         <Button>Login</Button>
                     </nuxt-link>
