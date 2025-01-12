@@ -19,7 +19,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-    <div class="mx-auto w-[500px] lg:w-[800px] bg-slate-200 rounded-xl p-[64px]">
+    <div class="mx-auto w-[500px] lg:w-[800px] bg-slate-200 my-16 rounded-xl p-[64px]">
         <h2 class="title has-text-centered">Welcome back!</h2>
         <form method="post" @submit.prevent="handleLogin" class="space-y-6">
             <label class="label">Email</label>
