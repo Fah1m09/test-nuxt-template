@@ -1,10 +1,8 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { defineStore } from "pinia";
 import type { iAuthState } from "~/types/common";
-interface iRes {
-  access_token: string | null;
-  refresh_token: string | null;
-}
+
 export const useAuthStore = defineStore("auth", {
   state: (): iAuthState => ({
     user: null,
@@ -24,14 +22,16 @@ export const useAuthStore = defineStore("auth", {
       this.error = null;
 
       try {
-        const response: iRes = await axios.post(
+        const response = await axios.post(
           "https://api.escuelajs.co/api/v1/auth/login",
           { email, password }
         );
-        const access_token = response.access_token;
-        const refresh_token = response.refresh_token;
+        const access_token = response.data.access_token;
+        const refresh_token = response.data.refresh_token;
         this.token = access_token;
         this.refreshToken = refresh_token;
+        if (access_token) Cookies.set("token", access_token);
+        if (access_token) Cookies.set("refreshToken", refresh_token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
       } catch (err: any) {
         this.error = err.response?.data?.message || "Login failed";
@@ -43,6 +43,8 @@ export const useAuthStore = defineStore("auth", {
     logout() {
       this.token = null;
       this.refreshToken = null;
+      Cookies.remove("token");
+      Cookies.remove("refreshToken");
       delete axios.defaults.headers.common["Authorization"];
     },
   },
